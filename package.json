@@ -1,2 +1,6 @@
 {
+    "name": "xb2-node",
+    "version": "1.0.0",
+    "description": "学习《小白兔的开发之路》演示项目",
+    "author": "walk1ng <iliwgg@gmail.com>"
 }
