@@ -39,7 +39,7 @@ app.get('/posts',(req: Request,res: Response)=>{
 
 app.get('/posts/:postId',(req: Request,res: Response)=>{
     const { postId } = req.params;
-    const posts = data.filter(item => item.id == postId);
+    const posts = data.filter(item => item.id == parseInt(postId, 10));
     res.send(posts[0]);
 });
 
