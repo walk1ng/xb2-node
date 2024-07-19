@@ -8,6 +8,10 @@ import { getPosts } from './post.service';
  * @param next
  */
 const index = (req: Request, res: Response, next: NextFunction) => {
+  if (req.headers.authorization !== 'SECRET') {
+    return next(new Error('没有权限'));
+  }
+
   const posts = getPosts();
   res.send(posts);
 };
