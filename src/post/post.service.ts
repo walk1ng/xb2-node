@@ -1,7 +1,21 @@
-export const getPosts = () => {
-  return [
-    { id: 1, title: 'Post 1', content: 'Content 1' },
-    { id: 2, title: 'Post 2', content: 'Content 2' },
-    { id: 3, title: 'Post 3', content: 'Content 3' },
-  ];
+import { connection } from '../app/database/mysql';
+
+export const getPosts = async () => {
+  const statement = `
+    SELECT 
+    post.id,
+    post.title,
+    post.content,
+    JSON_OBJECT(
+      'id', user.id,
+      'name', user.name
+    ) as user
+    FROM post
+    LEFT JOIN user
+    ON post.userId = user.id
+    ;
+  `;
+
+  const [data] = await connection.promise().query(statement);
+  return data;
 };

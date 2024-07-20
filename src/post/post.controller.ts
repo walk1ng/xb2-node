@@ -7,12 +7,8 @@ import { getPosts } from './post.service';
  * @param res
  * @param next
  */
-const index = (req: Request, res: Response, next: NextFunction) => {
-  if (req.headers.authorization !== 'SECRET') {
-    return next(new Error('没有权限'));
-  }
-
-  const posts = getPosts();
+const index = async (req: Request, res: Response, next: NextFunction) => {
+  const posts = await getPosts();
   res.send(posts);
 };
 
