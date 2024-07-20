@@ -8,8 +8,12 @@ import { getPosts } from './post.service';
  * @param next
  */
 const index = async (req: Request, res: Response, next: NextFunction) => {
-  const posts = await getPosts();
-  res.send(posts);
+  try {
+    const posts = await getPosts();
+    res.send(posts);
+  } catch (error) {
+    next(error);
+  }
 };
 
 export { index };
