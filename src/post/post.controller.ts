@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { getPosts, createPost } from './post.service';
+import { getPosts, createPost, updatePost } from './post.service';
 
 /**
  * 内容列表
@@ -32,4 +32,20 @@ const store = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { index, store };
+/**
+ * 更新内容
+ */
+const update = async (req: Request, res: Response, next: NextFunction) => {
+  // 准备数据
+  const { title, content } = req.body;
+  const { postId } = req.params;
+
+  try {
+    const data = await updatePost(parseInt(postId), { title, content });
+    res.send(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { index, store, update };
