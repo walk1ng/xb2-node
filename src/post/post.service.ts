@@ -58,3 +58,20 @@ export const updatePost = async (postId: number, post: PostModel) => {
   // 返回数据
   return data;
 };
+
+/**
+ * 删除内容
+ */
+export const deletePost = async (postId: number) => {
+  // 准备删除
+  const statement = `
+  DELETE FROM post
+  WHERE id = ?
+  `;
+
+  // 执行删除
+  const [data] = await connection.promise().query(statement, postId);
+
+  // 返回数据
+  return data;
+};
