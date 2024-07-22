@@ -45,6 +45,10 @@ export const defaultErrorHandler = (
       statusCode = 400;
       message = '用户不存在';
       break;
+    case 'PASSWORD_DOES_NOT_MATCH':
+      statusCode = 400;
+      message = '密码不正确';
+      break;
     default:
       statusCode = 500;
       message = '服务器发生了一些错误：' + err.message;
