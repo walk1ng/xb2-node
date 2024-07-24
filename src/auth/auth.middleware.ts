@@ -44,8 +44,9 @@ export const authGuard = (req: Request, res: Response, next: NextFunction) => {
 
   try {
     // 提取 authorization
-    const authorization = req.header['Authorization'];
+    const authorization = req.header('authorization');
     if (!authorization) throw new Error();
+    console.log(authorization);
 
     // 提取 JWT 令牌
     const token = authorization.replace('Bearer ', '');
