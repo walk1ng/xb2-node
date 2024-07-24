@@ -10,11 +10,19 @@ export const login = async (
   next: NextFunction,
 ) => {
   // 准备数据
-  const { name, password } = req.body;
+  const {
+    user: { id, name },
+  } = req.body;
+
+  // 准备签发令牌的payload
+  const payload = { id, name };
 
   try {
+    // 签发令牌
+    const token = authService.signToken({ payload });
+
     // 发送响应
-    res.send({ message: `欢迎回来，${name}` });
+    res.send({ id, name, token });
   } catch (error) {
     next(error);
   }

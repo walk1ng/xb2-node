@@ -9,6 +9,8 @@ interface SignTokenOptions {
 }
 
 export const signToken = (options: SignTokenOptions) => {
+  console.log('👮🏻‍♀️ 签发token');
+
   // 准备选项
   const { payload } = options;
 
