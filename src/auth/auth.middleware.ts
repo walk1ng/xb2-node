@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import * as userService from '../user/user.service';
 import { PUBLIC_KEY } from '../app/app.config';
+import { TokenPayload } from './auth.interface';
 
 /**
  * 验证用户登录数据
@@ -46,14 +47,16 @@ export const authGuard = (req: Request, res: Response, next: NextFunction) => {
     // 提取 authorization
     const authorization = req.header('authorization');
     if (!authorization) throw new Error();
-    console.log(authorization);
 
     // 提取 JWT 令牌
     const token = authorization.replace('Bearer ', '');
     if (!token) throw new Error();
 
-    // 验证令牌
-    jwt.verify(token, PUBLIC_KEY, { algorithms: ['RS256'] });
+    // 验证令牌并获取payload数据, 这里是用户信息
+    const decode = jwt.verify(token, PUBLIC_KEY, { algorithms: ['RS256'] });
+
+    // 在request中添加用户信息
+    req.user = decode as TokenPayload;
 
     // 下一步
     next();
