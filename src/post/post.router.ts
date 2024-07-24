@@ -1,6 +1,7 @@
 import * as postController from './post.controller';
 import { Router } from 'express';
 import { requestUrl } from '../app/app.middleware';
+import { authGuard } from '../auth/auth.middleware';
 
 /**
  * 路由实例
@@ -15,7 +16,7 @@ router.get('/posts', requestUrl, postController.index);
 /**
  * 创建内容
  */
-router.post('/posts', postController.store);
+router.post('/posts', authGuard, postController.store);
 
 /**
  * 更新内容

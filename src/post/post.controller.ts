@@ -23,9 +23,11 @@ const index = async (req: Request, res: Response, next: NextFunction) => {
 const store = async (req: Request, res: Response, next: NextFunction) => {
   // 准备数据
   const { title, content } = req.body;
+  // 从请求中解析找到用户id
+  const { id: userId } = req.user;
 
   try {
-    const data = await createPost({ title, content });
+    const data = await createPost({ title, content, userId });
     res.status(201).send(data);
   } catch (error) {
     // 异常处理
