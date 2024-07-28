@@ -1,7 +1,7 @@
 import * as postController from './post.controller';
 import { Router } from 'express';
 import { requestUrl } from '../app/app.middleware';
-import { authGuard } from '../auth/auth.middleware';
+import { accessControl, authGuard } from '../auth/auth.middleware';
 
 /**
  * 路由实例
@@ -21,12 +21,22 @@ router.post('/posts', authGuard, postController.store);
 /**
  * 更新内容
  */
-router.patch('/posts/:postId', postController.update);
+router.patch(
+  '/posts/:postId',
+  authGuard,
+  accessControl({ possession: true }),
+  postController.update,
+);
 
 /**
  * 删除内容
  */
-router.delete('/posts/:postId', postController.destroy);
+router.delete(
+  '/posts/:postId',
+  authGuard,
+  accessControl({ possession: true }),
+  postController.destroy,
+);
 
 /**
  * 导出路由

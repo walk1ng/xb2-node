@@ -88,8 +88,7 @@ export const accessControl = (options: AccessControlOptions) => {
 
     // 解析资源
     const resourceIdParam = Object.keys(req.params)[0];
-    console.log('resourceIdParam:', resourceIdParam);
-
+    // e.g. req.params: { postId: '9' }
     const resourceType = resourceIdParam.replace('Id', '');
     const resourceId = parseInt(req.params[resourceIdParam], 10);
 
