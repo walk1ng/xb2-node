@@ -53,6 +53,10 @@ export const defaultErrorHandler = (
       statusCode = 401;
       message = '请先登录';
       break;
+    case 'USER_DOES_NOT_OWN_RESOURCE':
+      statusCode = 403;
+      message = '您无权处理这个资源';
+      break;
     default:
       statusCode = 500;
       message = '服务器发生了一些错误：' + err.message;
